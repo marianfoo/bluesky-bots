@@ -87,9 +87,9 @@ const reddit = new snoowrap({
               await new Promise((resolve) => setTimeout(resolve, waitTime));
             }
 
-            // Prepare the post text
+            // Prepare the post text and embed content
             const postLink = `https://www.reddit.com${post.permalink}`;
-            const postText = `New post in r/${subredditName} by u/${post.author.name}:\n${post.title}\nLink: ${postLink}`;
+            const postText = `New post in r/${subredditName} by u/${post.author.name}:\n🔗 Link: ${postLink}`;
 
             // Create a RichText instance
             const rt = new RichText({ text: postText });
@@ -106,10 +106,26 @@ const reddit = new snoowrap({
               console.log('Post content was too long and has been truncated.');
             }
 
+            // Create the embed object if there's selftext content
+            let embed = undefined;
+            if (post.selftext) {
+              embed = {
+                $type: 'app.bsky.embed.external',
+                external: {
+                  uri: postLink,
+                  title: post.title,
+                  description: post.selftext.length > 300 
+                    ? post.selftext.substring(0, 297) + '...' 
+                    : post.selftext
+                }
+              };
+            }
+
             // Post to Bluesky
             const postResponse = await agent.post({
               text: rt.text,
               facets: rt.facets,
+              embed: embed,
               createdAt: new Date().toISOString(),
             });
 
