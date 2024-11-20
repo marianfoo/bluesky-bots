@@ -38,6 +38,6 @@ jobs:
             npm install
 
             echo "Restarting the bot..."
-            pm2 reload bluesky-rss-bot || pm2 start index.js --name bluesky-rss-bot
+            pm2 reload bluesky-scn-bot || pm2 start index.js --name bluesky-scn-bot
 
             echo "Deployment complete!"
