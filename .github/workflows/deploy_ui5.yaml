@@ -1,11 +1,11 @@
 name: Deploy Bot
 
 on:
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - 'packages/blueskybotui5version/index.js'  # Only run when index.js changes
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/blueskybotui5version/index.js'  # Only run when index.js changes
   workflow_dispatch:  # Enables manual trigger
 
 jobs:
