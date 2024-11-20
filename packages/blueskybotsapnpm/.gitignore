@@ -1,0 +1,4 @@
+.env
+node_modules
+posted_packages.json
+not_found_packages.json
