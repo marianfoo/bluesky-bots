@@ -1,14 +1,17 @@
 {
-  "name": "blueskybots",
+  "name": "reddit-sap",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "workspaces": [
-    "packages/*"
-  ]
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "snoowrap": "1.23.0",
+    "@atproto/api": "^0.13.16"
+  }
 }
