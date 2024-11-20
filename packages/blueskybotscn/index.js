@@ -132,7 +132,7 @@ function stripHtml(html) {
                 : '';
 
             // Updated post text to include the blog source
-            const postText = `📰 New Post ${blogSource}: "${item.title}"\n👤 Author: ${author}\n🔗 Link: ${item.link}`;
+            const postText = `👤 Post by ${author}\n📰 ${blogSource}: "${item.title}"\n🔗 Link: ${item.link}`;
 
             // Create a RichText instance
             const rt = new RichText({ text: postText });
