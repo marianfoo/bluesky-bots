@@ -89,7 +89,34 @@ const reddit = new snoowrap({
 
             // Prepare the post text and embed content
             const postLink = `https://www.reddit.com${post.permalink}`;
-            const postText = `New post in r/${subredditName} by u/${post.author.name}:\n🔗 Link: ${postLink}`;
+            let postText;
+            let embed = undefined;
+
+            if (post.selftext) {
+              // If there's selftext, use embed and keep post text minimal
+              postText = `New post in r/${subredditName} by u/${post.author.name}:\n🔗 Link: ${postLink}`;
+              embed = {
+                $type: 'app.bsky.embed.external',
+                external: {
+                  uri: postLink,
+                  title: post.title,
+                  description: post.selftext.length > 300 
+                    ? post.selftext.substring(0, 297) + '...' 
+                    : post.selftext
+                }
+              };
+            } else {
+              // If no selftext, include the title in the post text
+              const baseText = `New post in r/${subredditName} by u/${post.author.name}:\n📝 `;
+              const suffix = `\n🔗 Link: ${postLink}`;
+              const maxTitleLength = 290 - (baseText.length + suffix.length);
+              
+              const truncatedTitle = post.title.length > maxTitleLength 
+                ? post.title.substring(0, maxTitleLength - 3) + '...'
+                : post.title;
+              
+              postText = baseText + truncatedTitle + suffix;
+            }
 
             // Create a RichText instance
             const rt = new RichText({ text: postText });
@@ -104,21 +131,6 @@ const reddit = new snoowrap({
               rt.setText(rt.text.slice(0, rt.text.length + charactersRemaining - 1) + '…');
               await rt.detectFacets(agent);
               console.log('Post content was too long and has been truncated.');
-            }
-
-            // Create the embed object if there's selftext content
-            let embed = undefined;
-            if (post.selftext) {
-              embed = {
-                $type: 'app.bsky.embed.external',
-                external: {
-                  uri: postLink,
-                  title: post.title,
-                  description: post.selftext.length > 300 
-                    ? post.selftext.substring(0, 297) + '...' 
-                    : post.selftext
-                }
-              };
             }
 
             // Post to Bluesky
