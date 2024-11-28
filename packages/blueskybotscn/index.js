@@ -41,19 +41,6 @@ function stripHtml(html) {
         .trim();
 }
 
-// Function to convert long SAP Community URLs to shorter format
-function getShorterSapUrl(longUrl) {
-  // Extract article ID from the end of the URL
-  const articleId = longUrl.split('/').pop();
-  
-  // Determine the blog type from the URL
-  const blogType = longUrl.includes('technology-blog-sap') 
-    ? 'technology-blog-sap'
-    : 'technology-blog-members';
-    
-  return `https://community.sap.com/t5/blogs/blogworkflowpage/blog-id/${blogType}/article-id/${articleId}`;
-}
-
 // Add this near the top of the file, after the imports
 function log(message, isError = false) {
   const timestamp = new Date().toISOString();
@@ -166,19 +153,19 @@ function log(message, isError = false) {
                 : '';
 
             // Calculate maximum title length to ensure total post stays within limit
-            const baseText = `👤 Post by ${author} (${blogSource}):\n""\n🔗 Link: ${getShorterSapUrl(item.link)}`;
+            const baseText = `👤 Post by ${author} (${blogSource}):\n""\n🔗 Link: ${item.link}`;
             log(`Base text length: ${baseText.length} characters`);
             const maxTitleLength = 290 - baseText.length;
             const truncatedTitle = item.title.length > maxTitleLength 
                 ? item.title.slice(0, maxTitleLength - 1) + '…' 
                 : item.title;
 
-            const postText = `👤 Post by ${author} (${blogSource}):\n"${truncatedTitle}"\n🔗 Link: ${getShorterSapUrl(item.link)}`;
+            let postText = `👤 Post by ${author} (${blogSource}):\n"${truncatedTitle}"\n🔗 Link: ${item.link}`;
             log(`Truncated post length: ${postText.length} characters`);
             log(`Post text: ${postText}`);
 
             // Create a RichText instance
-            const rt = new RichText({ text: postText });
+            let rt = new RichText({ text: postText });
             await rt.detectFacets(agent);
 
             let finalPostText = postText;
@@ -187,8 +174,8 @@ function log(message, isError = false) {
             // If post is still too long, remove the link and use embed instead
             if (rt.text.length > 300) {
                 // Create shorter post text without the link
-                finalPostText = `👤 Post by ${author} (${blogSource}):\n"${truncatedTitle}"`;
-                rt.setText(finalPostText);
+                finalPostText = `👤 Post by ${author} (${blogSource}):\n"${item.title}"`;
+                rt = new RichText({ text: finalPostText });
                 await rt.detectFacets(agent);
 
                 // Create the embed object
@@ -203,27 +190,50 @@ function log(message, isError = false) {
             }
 
             // Post to Bluesky
-            const postResponse = await agent.post({
-                text: rt.text,
-                facets: rt.facets,
-                embed: embed,
-                createdAt: new Date().toISOString(),
-            });
+            try {
+                let postResponse;  // Declare the variable outside the if/else blocks
+                if (embed === null) {
+                    postResponse = await agent.post({
+                        text: rt.text,
+                        facets: rt.facets,
+                        createdAt: new Date().toISOString(),
+                    });
+                } else {
+                    postResponse = await agent.post({
+                        text: rt.text,
+                        facets: rt.facets,
+                        embed: embed,
+                        createdAt: new Date().toISOString(),
+                    });
+                }
 
-            console.log(`Posted to Bluesky: "${item.title}"`);
+                log(`Posted to Bluesky: "${item.title}"`);
+                
+                // Update last post time and posted IDs
+                lastPostTime = Date.now();
 
-            // Update last post time and posted IDs
-            lastPostTime = Date.now();
+                // Save the Bluesky post ID (URI)
+                const blueskyPostId = postResponse.uri;
 
-            // Save the Bluesky post ID (URI)
-            const blueskyPostId = postResponse.uri;
-
-            // Update postedIds with the mapping
-            postedIds[uniqueId] = blueskyPostId;
-            fs.writeFileSync(
-              POSTED_IDS_FILE,
-              JSON.stringify(postedIds, null, 2)
-            );
+                // Update postedIds with the mapping
+                postedIds[uniqueId] = blueskyPostId;
+                fs.writeFileSync(
+                    POSTED_IDS_FILE,
+                    JSON.stringify(postedIds, null, 2)
+                );
+            } catch (postError) {
+                log(`Failed to post "${item.title}". Error: ${postError.message}`, true);
+                log(`Post content: ${rt.text}`, true);
+                if (embed) {
+                    log(`Embed content: ${JSON.stringify(embed)}`, true);
+                }
+                
+                // Update last post time to maintain rate limiting
+                lastPostTime = Date.now();
+                
+                // Continue with the next item
+                continue;
+            }
           }
         }
       } catch (error) {
