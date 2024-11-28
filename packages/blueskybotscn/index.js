@@ -132,7 +132,7 @@ function stripHtml(html) {
                 : '';
 
             // Updated post text to include the blog source
-            const postText = `👤 Post by ${author}\n📰 ${blogSource}: "${item.title}"\n🔗 Link: ${item.link}`;
+            const postText = `👤 Post by ${author} (${blogSource}):\n"${item.title}"\n🔗 Link: ${item.link}`;
 
             // Create a RichText instance
             const rt = new RichText({ text: postText });
@@ -151,22 +151,10 @@ function stripHtml(html) {
               console.log('Post content was too long and has been truncated.');
             }
 
-            // Create the embed object
-            // const embed = {
-            //   $type: 'app.bsky.embed.external',
-            //   external: {
-            //     uri: item.link,
-            //     title: item.title,
-            //     description: stripHtml(item.description) || '', // Convert HTML to plain text
-            //     // Do not include 'thumb' if there's no valid thumbnail
-            //   },
-            // };
-
             // Post to Bluesky
             const postResponse = await agent.post({
               text: rt.text,
               facets: rt.facets,
-            //   embed: embed,
               createdAt: new Date().toISOString(),
             });
 
