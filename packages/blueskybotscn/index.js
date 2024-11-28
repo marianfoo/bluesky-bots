@@ -131,8 +131,14 @@ function stripHtml(html) {
                 ? 'by Members' 
                 : '';
 
-            // Updated post text to include the blog source
-            const postText = `👤 Post by ${author} (${blogSource}):\n"${item.title}"\n🔗 Link: ${item.link}`;
+            // Calculate maximum title length to ensure total post stays within limit
+            const baseText = `👤 Post by ${author} (${blogSource}):\n""\n🔗 Link: ${item.link}`;
+            const maxTitleLength = 290 - baseText.length;
+            const truncatedTitle = item.title.length > maxTitleLength 
+                ? item.title.slice(0, maxTitleLength - 1) + '…' 
+                : item.title;
+
+            const postText = `👤 Post by ${author} (${blogSource}):\n"${truncatedTitle}"\n🔗 Link: ${item.link}`;
 
             // Create a RichText instance
             const rt = new RichText({ text: postText });
