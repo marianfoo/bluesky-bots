@@ -41,6 +41,19 @@ function stripHtml(html) {
         .trim();
 }
 
+// Function to convert long SAP Community URLs to shorter format
+function getShorterSapUrl(longUrl) {
+  // Extract article ID from the end of the URL
+  const articleId = longUrl.split('/').pop();
+  
+  // Determine the blog type from the URL
+  const blogType = longUrl.includes('technology-blog-sap') 
+    ? 'technology-blog-sap'
+    : 'technology-blog-members';
+    
+  return `https://community.sap.com/t5/blogs/blogworkflowpage/blog-id/${blogType}/article-id/${articleId}`;
+}
+
 // Main function
 (async () => {
   try {
