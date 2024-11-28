@@ -54,6 +54,18 @@ function getShorterSapUrl(longUrl) {
   return `https://community.sap.com/t5/blogs/blogworkflowpage/blog-id/${blogType}/article-id/${articleId}`;
 }
 
+// Add this near the top of the file, after the imports
+function log(message, isError = false) {
+  const timestamp = new Date().toISOString();
+  const logMessage = `[${timestamp}] ${message}`;
+  
+  if (isError) {
+    console.error(logMessage);
+  } else {
+    console.log(logMessage);
+  }
+}
+
 // Main function
 (async () => {
   try {
@@ -92,11 +104,11 @@ function getShorterSapUrl(longUrl) {
     // Function to check the RSS feeds
     const checkFeeds = async () => {
       try {
-        console.log('Checking RSS feeds...');
+        log('Checking RSS feeds...');
 
         // Iterate over each RSS feed URL
         for (const feedUrl of RSS_FEED_URLS) {
-          console.log(`Processing feed: ${feedUrl}`);
+          log(`Processing feed: ${feedUrl}`);
 
           // Fetch the RSS feed
           const response = await fetch(feedUrl);
@@ -111,6 +123,13 @@ function getShorterSapUrl(longUrl) {
           // Ensure items is an array
           const feedItems = Array.isArray(items) ? items : [items];
 
+          const newItems = feedItems.filter(item => {
+            const id = item.guid || item.link;
+            const uniqueId = `${feedUrl}::${id}`;
+            return !postedIds.hasOwnProperty(uniqueId);
+          });
+          log(`Found ${newItems.length} new posts in feed`);
+
           // Process items from oldest to newest
           for (const item of feedItems.reverse()) {
             const id = item.guid || item.link;
@@ -121,6 +140,8 @@ function getShorterSapUrl(longUrl) {
             if (postedIds.hasOwnProperty(uniqueId)) {
               continue;
             }
+
+            log(`Processing new post: "${item.title}"`);
 
             // Enforce rate limit
             const now = Date.now();
@@ -145,13 +166,16 @@ function getShorterSapUrl(longUrl) {
                 : '';
 
             // Calculate maximum title length to ensure total post stays within limit
-            const baseText = `👤 Post by ${author} (${blogSource}):\n""\n🔗 Link: ${item.link}`;
+            const baseText = `👤 Post by ${author} (${blogSource}):\n""\n🔗 Link: ${getShorterSapUrl(item.link)}`;
+            log(`Base text length: ${baseText.length} characters`);
             const maxTitleLength = 290 - baseText.length;
             const truncatedTitle = item.title.length > maxTitleLength 
                 ? item.title.slice(0, maxTitleLength - 1) + '…' 
                 : item.title;
 
-            const postText = `👤 Post by ${author} (${blogSource}):\n"${truncatedTitle}"\n🔗 Link: ${item.link}`;
+            const postText = `👤 Post by ${author} (${blogSource}):\n"${truncatedTitle}"\n🔗 Link: ${getShorterSapUrl(item.link)}`;
+            log(`Truncated post length: ${postText.length} characters`);
+            log(`Post text: ${postText}`);
 
             // Create a RichText instance
             const rt = new RichText({ text: postText });
