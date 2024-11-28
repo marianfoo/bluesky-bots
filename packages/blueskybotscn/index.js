@@ -179,26 +179,35 @@ function log(message, isError = false) {
 
             // Create a RichText instance
             const rt = new RichText({ text: postText });
-
-            // Detect facets (links, mentions, hashtags)
             await rt.detectFacets(agent);
 
-            // Check if the content exceeds the limit
-            const { charactersRemaining } = rt;
-            if (charactersRemaining < 0) {
-              // Truncate the text and re-detect facets
-              rt.setText(
-                rt.text.slice(0, rt.text.length + charactersRemaining - 1) + '…'
-              );
-              await rt.detectFacets(agent);
-              console.log('Post content was too long and has been truncated.');
+            let finalPostText = postText;
+            let embed = null;
+
+            // If post is still too long, remove the link and use embed instead
+            if (rt.text.length > 300) {
+                // Create shorter post text without the link
+                finalPostText = `👤 Post by ${author} (${blogSource}):\n"${truncatedTitle}"`;
+                rt.setText(finalPostText);
+                await rt.detectFacets(agent);
+
+                // Create the embed object
+                embed = {
+                    $type: 'app.bsky.embed.external',
+                    external: {
+                        uri: item.link,
+                        title: item.title,
+                        description: stripHtml(item.description) || '',
+                    },
+                };
             }
 
             // Post to Bluesky
             const postResponse = await agent.post({
-              text: rt.text,
-              facets: rt.facets,
-              createdAt: new Date().toISOString(),
+                text: rt.text,
+                facets: rt.facets,
+                embed: embed,
+                createdAt: new Date().toISOString(),
             });
 
             console.log(`Posted to Bluesky: "${item.title}"`);
