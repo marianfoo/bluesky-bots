@@ -19,12 +19,12 @@ const POSTED_VERSIONS_FILE = path.join(__dirname, 'posted_versions.json');
 const UI5_VERSIONS = [
   {
     type: 'SAPUI5',
-    rssUrl: 'https://marianfoo.github.io/ui5-lib-diff/rss_feed_SAPUI5.xml',
+    rssUrl: 'https://ui5-lib-diff.marianzeis.de/rss_feed_SAPUI5.xml',
     versionJsonUrl: 'https://sapui5.hana.ondemand.com/version.json?sap-ui-config-patches=true&sap-ui-config-showall=true',
   },
   {
     type: 'OpenUI5',
-    rssUrl: 'https://marianfoo.github.io/ui5-lib-diff/rss_feed_OpenUI5.xml',
+    rssUrl: 'https://ui5-lib-diff.marianzeis.de/rss_feed_OpenUI5.xml',
     versionJsonUrl: 'https://openui5.hana.ondemand.com/version.json?sap-ui-config-patches=true&sap-ui-config-showall=true',
   },
 ];
@@ -159,7 +159,7 @@ const agent = new BskyAgent({
             }
 
             // Generate the comparison link
-            const compareLink = `https://marianfoo.github.io/ui5-lib-diff/?versionFrom=${latestVersion}&ui5Type=${type}&versionTo=${previousVersion}`;
+            const compareLink = `https://ui5-lib-diff.marianzeis.de/?versionFrom=${latestVersion}&ui5Type=${type}&versionTo=${previousVersion}`;
 
             // Generate the documentation link based on UI5 type
             const docsLink =
