@@ -254,6 +254,7 @@ async function saveProgress(did, checkResults) {
 
         message += `You don't have to change anything, of course, but I and the SAP community here would be happy if you did.\n\n`;
         message += `Thanks in advance!\n\nBest regards,\nMarian Zeis`;
+        message += `\n\n[This is an automated message sent by a bot]`;
 
         try {
           const session = await createSession();
