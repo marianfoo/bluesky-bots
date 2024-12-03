@@ -4,6 +4,7 @@ require('dotenv').config();
 const { BskyAgent } = require('@atproto/api');
 const sharp = require('sharp');
 const axios = require('axios');
+const fs = require('fs').promises;
 
 const BLUESKY_USERNAME = process.env.BLUESKY_USERNAME;
 const BLUESKY_PASSWORD = process.env.BLUESKY_PASSWORD;
@@ -76,6 +77,25 @@ async function sendMessage(accountPDS, convoId, message) {
   );
 }
 
+async function loadProgress() {
+  try {
+    const data = await fs.readFile('progress.json', 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    // If file doesn't exist or is invalid, return empty object
+    return {};
+  }
+}
+
+async function saveProgress(did, checkResults) {
+  const progress = await loadProgress();
+  progress[did] = {
+    ...checkResults,
+    lastChecked: new Date().toISOString()
+  };
+  await fs.writeFile('progress.json', JSON.stringify(progress, null, 2));
+}
+
 (async () => {
   try {
     // Initialize the Bluesky agent
@@ -124,19 +144,31 @@ async function sendMessage(accountPDS, convoId, message) {
       console.log('----------------------------------');
       console.log(`Processing follower: ${follower.handle}`);
 
-      let needsAvatarUpdate = false;
-      let needsDisplayNameUpdate = false;
-      let needsDescriptionUpdate = false;
+      // Load existing progress
+      const progress = await loadProgress();
+      
+      // Skip if already processed
+      if (progress[follower.did]) {
+        console.log(`Skipping ${follower.handle} - already processed on ${progress[follower.did].lastChecked}`);
+        continue;
+      }
+
+      const checkResults = {
+        handle: follower.handle,
+        needsAvatarUpdate: false,
+        needsDisplayNameUpdate: false,
+        needsDescriptionUpdate: false
+      };
 
       // Check if displayName is empty
       if (!follower.displayName || follower.displayName.trim() === '') {
-        needsDisplayNameUpdate = true;
+        checkResults.needsDisplayNameUpdate = true;
         console.log(`User ${follower.handle} has no displayName.`);
       }
 
       // Check if description is empty
       if (!follower.description || follower.description.trim() === '') {
-        needsDescriptionUpdate = true;
+        checkResults.needsDescriptionUpdate = true;
         console.log(`User ${follower.handle} has no description.`);
       }
 
@@ -179,7 +211,7 @@ async function sendMessage(accountPDS, convoId, message) {
 
           if (mostCommonColorPercentage > 90 && colorKeys.length < 10) {
             // Image is mostly one color, likely a default avatar
-            needsAvatarUpdate = true;
+            checkResults.needsAvatarUpdate = true;
             console.log(`User ${follower.handle} has a default avatar.`);
           } else {
             console.log(`User ${follower.handle} has a custom avatar.`);
@@ -189,28 +221,30 @@ async function sendMessage(accountPDS, convoId, message) {
         }
       } else {
         // User has no avatar set
-        needsAvatarUpdate = true;
+        checkResults.needsAvatarUpdate = true;
         console.log(`User ${follower.handle} has no avatar.`);
       }
 
-      needsDisplayNameUpdate = true;
-      needsDescriptionUpdate = true;
+      // Save progress after checks
+      await saveProgress(follower.did, checkResults);
 
-      // Compose messages
-      if (needsAvatarUpdate || needsDisplayNameUpdate || needsDescriptionUpdate) {
+      // Only send message if updates are needed
+      if (checkResults.needsAvatarUpdate || 
+          checkResults.needsDisplayNameUpdate || 
+          checkResults.needsDescriptionUpdate) {
         let message = `Welcome to Bluesky, @${follower.handle}!\n\n`;
         message += `Thank you for supporting the SAP community here and contributing to it. The focus is, of course, on the exchange of information on SAP topics.\n\n`;
         message += `It is very helpful if you don't have the default avatar, have a good username (preferably your real name), and a description in your profile.\n\n`;
 
         let updatesList = [];
 
-        if (needsAvatarUpdate) {
+        if (checkResults.needsAvatarUpdate) {
           updatesList.push('the default avatar');
         }
-        if (needsDisplayNameUpdate) {
+        if (checkResults.needsDisplayNameUpdate) {
           updatesList.push('no display name');
         }
-        if (needsDescriptionUpdate) {
+        if (checkResults.needsDescriptionUpdate) {
           updatesList.push('no description in your profile');
         }
 
