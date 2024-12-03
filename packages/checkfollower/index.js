@@ -207,12 +207,6 @@ function checkRateLimit(headers) {
         console.log(`User ${follower.handle} has no displayName.`);
       }
 
-      // Check if description is empty
-      if (!follower.description || follower.description.trim() === '') {
-        checkResults.needsDescriptionUpdate = true;
-        console.log(`User ${follower.handle} has no description.`);
-      }
-
       // Check Avatar
       if (follower.avatar) {
         try {
@@ -271,8 +265,7 @@ function checkRateLimit(headers) {
 
       // Only send message if updates are needed
       if (checkResults.needsAvatarUpdate || 
-          checkResults.needsDisplayNameUpdate || 
-          checkResults.needsDescriptionUpdate) {
+          checkResults.needsDisplayNameUpdate) {
         
         try {
           // Check if conversation already exists
@@ -288,7 +281,7 @@ function checkRateLimit(headers) {
 
           let message = `Welcome to Bluesky, @${follower.handle}!\n\n`;
           message += `Thank you for supporting the SAP community here and contributing to it. The focus is, of course, on the exchange of information on SAP topics.\n\n`;
-          message += `It is very helpful if you don't have the default avatar, have a good username (preferably your real name), and a description in your profile.\n\n`;
+          message += `It is very helpful if you don't have the default avatar and have a good username (preferably your real name).\n\n`;
 
           let updatesList = [];
 
@@ -297,9 +290,6 @@ function checkRateLimit(headers) {
           }
           if (checkResults.needsDisplayNameUpdate) {
             updatesList.push('no display name');
-          }
-          if (checkResults.needsDescriptionUpdate) {
-            updatesList.push('no description in your profile');
           }
 
           if (updatesList.length > 0) {
