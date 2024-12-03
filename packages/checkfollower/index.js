@@ -87,13 +87,38 @@ async function loadProgress() {
   }
 }
 
-async function saveProgress(did, checkResults) {
+async function saveProgress(did, checkResults, messageStatus = null) {
   const progress = await loadProgress();
   progress[did] = {
     ...checkResults,
-    lastChecked: new Date().toISOString()
+    lastChecked: new Date().toISOString(),
+    messageSent: messageStatus
   };
   await fs.writeFile('progress.json', JSON.stringify(progress, null, 2));
+}
+
+async function listConvos(accountPDS, limit = 100) {
+  const url = 'chat.bsky.convo.listConvos';
+
+  const response = await blueSkySocialAPI.get(url, {
+    params: { limit },
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Atproto-Proxy': 'did:web:api.bsky.chat#bsky_chat',
+    },
+    baseURL: `${accountPDS}/xrpc`,
+  });
+  return response.data;
+}
+
+// Add helper function
+function checkRateLimit(headers) {
+  if (headers['ratelimit-remaining'] === '0') {
+    const resetTime = new Date(headers['ratelimit-reset'] * 1000);
+    const waitTime = resetTime - new Date();
+    throw new Error(`Rate limit exceeded. Reset at ${resetTime.toLocaleString()} (in ${Math.ceil(waitTime / 1000 / 60)} minutes)`);
+  }
 }
 
 (async () => {
@@ -104,11 +129,21 @@ async function saveProgress(did, checkResults) {
     });
 
     // Login to Bluesky
-    await agent.login({
-      identifier: BLUESKY_USERNAME,
-      password: BLUESKY_PASSWORD,
-    });
-    console.log('Logged into Bluesky successfully.');
+    try {
+      const loginResponse = await agent.login({
+        identifier: BLUESKY_USERNAME,
+        password: BLUESKY_PASSWORD,
+      });
+      checkRateLimit(loginResponse.headers);
+      console.log('Logged into Bluesky successfully.');
+    } catch (error) {
+      if (error.status === 429) {
+        console.error('Rate limit exceeded during login.');
+        console.error(`Limit will reset at: ${new Date(error.headers['ratelimit-reset'] * 1000).toLocaleString()}`);
+        process.exit(1);
+      }
+      throw error;
+    }
 
     // Get your own DID (Decentralized Identifier)
     const myDid = agent.session.did;
@@ -134,12 +169,18 @@ async function saveProgress(did, checkResults) {
 
     console.log(`Total followers fetched: ${followers.length}`);
 
+    // Fetch all conversations once
+    const session = await createSession();
+    const pdsEndpoint = session.service[0].serviceEndpoint;
+    const conversations = await listConvos(pdsEndpoint);
+    console.log(`Fetched ${conversations.convos.length} existing conversations`);
+
     // Process each follower
     for (const follower of followers) {
       // Only process the test account
-      if (follower.did !== "did:plc:2gtexo4dtoufqyz5nrths4vs") {
-        continue;
-      }
+    //   if (follower.did !== "did:plc:2gtexo4dtoufqyz5nrths4vs") {
+    //     continue;
+    //   }
 
       console.log('----------------------------------');
       console.log(`Processing follower: ${follower.handle}`);
@@ -232,33 +273,42 @@ async function saveProgress(did, checkResults) {
       if (checkResults.needsAvatarUpdate || 
           checkResults.needsDisplayNameUpdate || 
           checkResults.needsDescriptionUpdate) {
-        let message = `Welcome to Bluesky, @${follower.handle}!\n\n`;
-        message += `Thank you for supporting the SAP community here and contributing to it. The focus is, of course, on the exchange of information on SAP topics.\n\n`;
-        message += `It is very helpful if you don't have the default avatar, have a good username (preferably your real name), and a description in your profile.\n\n`;
-
-        let updatesList = [];
-
-        if (checkResults.needsAvatarUpdate) {
-          updatesList.push('the default avatar');
-        }
-        if (checkResults.needsDisplayNameUpdate) {
-          updatesList.push('no display name');
-        }
-        if (checkResults.needsDescriptionUpdate) {
-          updatesList.push('no description in your profile');
-        }
-
-        if (updatesList.length > 0) {
-          message += `I noticed that you still have ${updatesList.join(', ')}.\n\n`;
-        }
-
-        message += `You don't have to change anything, of course, but I and the SAP community here would be happy if you did.\n\n`;
-        message += `Thanks in advance!\n\nBest regards,\nMarian Zeis`;
-        message += `\n\n[This is an automated message sent by a bot]`;
-
+        
         try {
-          const session = await createSession();
-          const pdsEndpoint = session.service[0].serviceEndpoint;
+          // Check if conversation already exists
+          const existingConvo = conversations.convos.find(convo => 
+            convo.members.includes(follower.did)
+          );
+
+          if (existingConvo) {
+            console.log(`Message already sent to @${follower.handle} - conversation exists`);
+            await saveProgress(follower.did, checkResults, true);
+            continue;
+          }
+
+          let message = `Welcome to Bluesky, @${follower.handle}!\n\n`;
+          message += `Thank you for supporting the SAP community here and contributing to it. The focus is, of course, on the exchange of information on SAP topics.\n\n`;
+          message += `It is very helpful if you don't have the default avatar, have a good username (preferably your real name), and a description in your profile.\n\n`;
+
+          let updatesList = [];
+
+          if (checkResults.needsAvatarUpdate) {
+            updatesList.push('the default avatar');
+          }
+          if (checkResults.needsDisplayNameUpdate) {
+            updatesList.push('no display name');
+          }
+          if (checkResults.needsDescriptionUpdate) {
+            updatesList.push('no description in your profile');
+          }
+
+          if (updatesList.length > 0) {
+            message += `I noticed that you still have ${updatesList.join(', ')}.\n\n`;
+          }
+
+          message += `You don't have to change anything, of course, but I and the SAP community here would be happy if you did.\n\n`;
+          message += `Thanks in advance!\n\nBest regards,\nMarian Zeis`;
+          message += `\n\n[This is an automated message sent by a bot]`;
 
           // Get or create conversation
           const convo = await getConvoForMembers(pdsEndpoint, [session.did, follower.did]);
@@ -266,8 +316,10 @@ async function saveProgress(did, checkResults) {
           // Send message using the conversation ID
           await sendMessage(pdsEndpoint, convo.convo.id, message);
           console.log(`Sent a private message to @${follower.handle}`);
+          await saveProgress(follower.did, checkResults, true);
         } catch (error) {
           console.error(`Error sending message to @${follower.handle}:`, error.message);
+          await saveProgress(follower.did, checkResults, false);
         }
 
         // Add a delay between messages to respect rate limits
@@ -278,6 +330,10 @@ async function saveProgress(did, checkResults) {
       await new Promise((resolve) => setTimeout(resolve, 500)); // Wait 500ms
     }
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error.message);
+    if (error.status === 429) {
+      console.error('Script stopped due to rate limiting.');
+    }
+    process.exit(1);
   }
 })();
