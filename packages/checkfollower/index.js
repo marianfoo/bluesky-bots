@@ -10,7 +10,7 @@ const BLUESKY_PASSWORD = process.env.BLUESKY_PASSWORD;
 
 // Create axios instance for Bluesky API
 const blueSkySocialAPI = axios.create({
-  baseURL: 'https://bsky.social/xrpc'
+  baseURL: 'https://bsky.social/xrpc',
 });
 
 async function createSession() {
@@ -23,7 +23,7 @@ async function createSession() {
     {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
     }
   );
@@ -39,39 +39,36 @@ async function createSession() {
 
 async function getConvoForMembers(accountPDS, members) {
   const url = 'chat.bsky.convo.getConvoForMembers';
-  
-  const response = await blueSkySocialAPI.get(
-    url,
-    {
-      params: {
-        members: members // Array of DIDs
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Atproto-Proxy': 'did:web:api.bsky.chat#bsky_chat',
-      },
-      baseURL: `${accountPDS}/xrpc`,
-    }
-  );
+
+  const response = await blueSkySocialAPI.get(url, {
+    params: {
+      members: members, // Array of DIDs
+    },
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      'Atproto-Proxy': 'did:web:api.bsky.chat#bsky_chat',
+    },
+    baseURL: `${accountPDS}/xrpc`,
+  });
   return response.data;
 }
 
 async function sendMessage(accountPDS, convoId, message) {
   const url = 'chat.bsky.convo.sendMessage';
-  
+
   await blueSkySocialAPI.post(
     url,
     {
       convoId: convoId,
       message: {
-        text: message
-      }
+        text: message,
+      },
     },
     {
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Atproto-Proxy': 'did:web:api.bsky.chat#bsky_chat',
       },
       baseURL: `${accountPDS}/xrpc`,
@@ -196,37 +193,41 @@ async function sendMessage(accountPDS, convoId, message) {
         console.log(`User ${follower.handle} has no avatar.`);
       }
 
+      needsDisplayNameUpdate = true;
+      needsDescriptionUpdate = true;
+
       // Compose messages
       if (needsAvatarUpdate || needsDisplayNameUpdate || needsDescriptionUpdate) {
-        let message = `Welcome to Bluesky @${follower.handle}!\n\n`;
+        let message = `Welcome to Bluesky, @${follower.handle}!\n\n`;
         message += `Thank you for supporting the SAP community here and contributing to it. The focus is, of course, on the exchange of information on SAP topics.\n\n`;
-        message += `It is very helpful if you have a complete profile to better connect with other SAP community members. `;
-        
+        message += `It is very helpful if you don't have the default avatar, have a good username (preferably your real name), and a description in your profile.\n\n`;
+
         let updatesList = [];
-        if (needsDisplayNameUpdate) {
-          updatesList.push("no display name set");
-        }
+
         if (needsAvatarUpdate) {
-          updatesList.push("the default avatar");
+          updatesList.push('the default avatar');
+        }
+        if (needsDisplayNameUpdate) {
+          updatesList.push('no display name');
         }
         if (needsDescriptionUpdate) {
-          updatesList.push("no description in your profile");
+          updatesList.push('no description in your profile');
         }
 
         if (updatesList.length > 0) {
-          message += `I noticed that you currently have ${updatesList.join(", ")}.\n\n`;
+          message += `I noticed that you still have ${updatesList.join(', ')}.\n\n`;
         }
 
         message += `You don't have to change anything, of course, but I and the SAP community here would be happy if you did.\n\n`;
-        message += `Thanks in advance!`;
+        message += `Thanks in advance!\n\nBest regards,\nMarian Zeis`;
 
         try {
           const session = await createSession();
           const pdsEndpoint = session.service[0].serviceEndpoint;
-          
+
           // Get or create conversation
           const convo = await getConvoForMembers(pdsEndpoint, [session.did, follower.did]);
-          
+
           // Send message using the conversation ID
           await sendMessage(pdsEndpoint, convo.convo.id, message);
           console.log(`Sent a private message to @${follower.handle}`);
