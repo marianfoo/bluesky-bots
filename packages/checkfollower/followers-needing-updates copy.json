@@ -1,0 +1,1316 @@
+[
+  {
+    "handle": "philnet.bsky.social",
+    "did": "did:plc:jqillwiqfr4jdeebh272amav",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "ufuksezgin.bsky.social",
+    "did": "did:plc:vf2flcoh42ttpdhay4s76me7",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "ibrahimasiri.bsky.social",
+    "did": "did:plc:pzvatyu7xm7gljlfblyce6ua",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "rizwande.bsky.social",
+    "did": "did:plc:4r2hgsspv4myomrvb5nixpj7",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "hiramannan.bsky.social",
+    "did": "did:plc:nwihxiinp2qln5ed7sixlsgi",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "rockmdc.bsky.social",
+    "did": "did:plc:vs5mmo2ztrtdo345kx7u7oca",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "teejay4sap.bsky.social",
+    "did": "did:plc:pkoyxrlkp7vippwrxrsjgtum",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "bheekha.bsky.social",
+    "did": "did:plc:dvli45kqpu7pvxk5musdmwne",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "immanju.bsky.social",
+    "did": "did:plc:axznhtl3xczaupyepvg6lv3g",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "vigneshsubramanian.bsky.social",
+    "did": "did:plc:4x4yc7s2t5ooukfcwxqujypi",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "thefooldev.bsky.social",
+    "did": "did:plc:yh5zfaqy5rs3jrriafqvgd4t",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jylitolonen.bsky.social",
+    "did": "did:plc:vcoy2ufczarhgtmuhk3mly6g",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "venaraya.bsky.social",
+    "did": "did:plc:ezfk4xotcjhwdfrls732a7a6",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "archismandas.bsky.social",
+    "did": "did:plc:fzmrjspe6yxdlpbrcvthogg5",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "m-raghu.bsky.social",
+    "did": "did:plc:cghnmmiugrgv72aqh2jrvd2e",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jbarlowjb.bsky.social",
+    "did": "did:plc:u4soj746h5mlyvlqs7vmfqje",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "tkedarnath.bsky.social",
+    "did": "did:plc:phgqqwf73yskhkcbbsheefve",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "bharathi-sakthivel.bsky.social",
+    "did": "did:plc:ufiulwacwq3eyhc5zpeenmhz",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "mankadl.bsky.social",
+    "did": "did:plc:mylyw4ku7mrts53uiedx7t2i",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "maxi1555.bsky.social",
+    "did": "did:plc:ol5xgbzc5nrocsnqpaiy6xct",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "hrrudnytro.bsky.social",
+    "did": "did:plc:floklohfk3bptdsubxjjrhco",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "chanakya24.bsky.social",
+    "did": "did:plc:5nlvvi5ml6btv52qdyhhwsvm",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "kmkumaran1991.bsky.social",
+    "did": "did:plc:ta56uy2x2cuyhyjicqqoarmx",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "luk4zger.bsky.social",
+    "did": "did:plc:upu7i3fajmefxe76dgiwl5dn",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "w-ha.bsky.social",
+    "did": "did:plc:vpetcjz2khaft7ri2jlaicbn",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sureshkumar-sap.bsky.social",
+    "did": "did:plc:4edmlslokwuazodvww3353td",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "heidi0814.bsky.social",
+    "did": "did:plc:zselru6a4b3d5e5mnlkbq7j2",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "drbaurconsulting.bsky.social",
+    "did": "did:plc:2aguve2fbprnctj2jdrty35x",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "esh32.bsky.social",
+    "did": "did:plc:6z4am52tkyjvclgjmi2p463z",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "chrismorgen.bsky.social",
+    "did": "did:plc:zsivnlj6xje3h5p3vpbgu6na",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "1mhabeeb.bsky.social",
+    "did": "did:plc:vgqqy7qjbvlofa4vjcojzc3g",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "youtrackdb.bsky.social",
+    "did": "did:plc:mqfjjxjxdl5y3hm3lwjlufer",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "a-rout.bsky.social",
+    "did": "did:plc:udka4bgewagtudypupydjszm",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "waldo87.bsky.social",
+    "did": "did:plc:dkmklt2cb26arn5rq6dubrmz",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "i-love-india1234.bsky.social",
+    "did": "did:plc:skif2tstfm6ynse7tk6siqhy",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "maksim-rashchynski.bsky.social",
+    "did": "did:plc:s27waoh2n3grs2qxx4oxd4iy",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "esrapetra.bsky.social",
+    "did": "did:plc:d2xbiyt4togcss6myqwg5mc2",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "pedroaromero.bsky.social",
+    "did": "did:plc:zv7se77hdfo65egkarp4ezl5",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "taiabr.bsky.social",
+    "did": "did:plc:wpbwnbih6vaahsdvks5y6qwv",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "marogobal.bsky.social",
+    "did": "did:plc:pggfuf2agx3asg6me726ay4r",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "manu02323.bsky.social",
+    "did": "did:plc:cdfttijkb6dnikrbyb5djs7h",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "hermit07.bsky.social",
+    "did": "did:plc:y2t445ee2xcuk2vyyth7d3wm",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "xhev.bsky.social",
+    "did": "did:plc:3i4v6vbxrwvftqwxk2e6jlka",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "datadad.bsky.social",
+    "did": "did:plc:bmvbqt2apaoebqfh2hkssarl",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "pichayanan.bsky.social",
+    "did": "did:plc:bzdxc7ro54fqleluqi2bgzvn",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "andresj6.bsky.social",
+    "did": "did:plc:7kp2zjalxz2k5rcgwbw3pw22",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "rocioalday.bsky.social",
+    "did": "did:plc:ws2odh6rei5kkg7s62cjjpxc",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "becks-70.bsky.social",
+    "did": "did:plc:l4xba3qvanawtohqgnkekb56",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "rujutask.bsky.social",
+    "did": "did:plc:yd6gu6yja7xyqvx6yrukfpgn",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "yubashiri.bsky.social",
+    "did": "did:plc:wk5h5lygege6vmbk2ycfym4q",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "rafa1106.bsky.social",
+    "did": "did:plc:lbx2456pdyjmq6gkfcuiuaws",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "hackler5.bsky.social",
+    "did": "did:plc:gsgwcjqhmg4cngoqz7bfxho5",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "xichlomay.bsky.social",
+    "did": "did:plc:jo5al2xwvedpm7d34djj3krm",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "keltrian.bsky.social",
+    "did": "did:plc:anjio4ni76mwvsyyl2gh2ptt",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sinds173.bsky.social",
+    "did": "did:plc:m435dcnkyl55ybtnlq6jsgh5",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "eman5045.bsky.social",
+    "did": "did:plc:owjm4dgq5lsdtkblk5mwkezp",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "alpesa1990.bsky.social",
+    "did": "did:plc:sg7zfq6cyxibny5eneezdk7e",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "lukuvka.bsky.social",
+    "did": "did:plc:ctpnpjfiodipz5nj7jsyqctu",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "erisomalmeida.bsky.social",
+    "did": "did:plc:gp4oycdsx35mpxymy5t72vot",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "uilify.bsky.social",
+    "did": "did:plc:e22a6z3naeploy5alrjmnzjt",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "matlak1963.bsky.social",
+    "did": "did:plc:gj4gkyojahny7purqq7usjtj",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sapist.bsky.social",
+    "did": "did:plc:biekmoefpm3iw7emg4vte3hz",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sugarblood1337.bsky.social",
+    "did": "did:plc:vi25rqftae45opme2a7cym3q",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "naxos84.bsky.social",
+    "did": "did:plc:ezshbcj7jnxk74ys7g75x33x",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "goldypawar.bsky.social",
+    "did": "did:plc:7ng5gr747v4ovauz5nyvh2yj",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "michael-geising.bsky.social",
+    "did": "did:plc:lftqlitjh6ssdic3tqpjwrta",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "mariettalg.bsky.social",
+    "did": "did:plc:vcifiug4la6mc3wxcznkzdyz",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "tbroek.bsky.social",
+    "did": "did:plc:vzshhqe6j3qxsa46xg26gor6",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "priyankagayen.bsky.social",
+    "did": "did:plc:zpqo7pnkeebzttwoiluqdbte",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "hismayilov.bsky.social",
+    "did": "did:plc:ryz3or67asxdmqr56zbd5zam",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "erdoganm.bsky.social",
+    "did": "did:plc:piz6jpmak6az22wosrp3hl3v",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "pevertz.bsky.social",
+    "did": "did:plc:fxidswmyg4hp6sea7moagnos",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "mtng2024.bsky.social",
+    "did": "did:plc:r236jravqt6eebfkevnlu66u",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "captain-tanaka.bsky.social",
+    "did": "did:plc:nclgnt7mpgbqwfsqv5n6h37l",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "kenmaliksi.bsky.social",
+    "did": "did:plc:42php7nuslko5coyifdly7x6",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "wielandb.bsky.social",
+    "did": "did:plc:bech5xnz6hivjnvqijxs2agp",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "nicoprieto.bsky.social",
+    "did": "did:plc:rbhy5cafs7okwpmh5mq7k7zx",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "schorsch28.bsky.social",
+    "did": "did:plc:gyksdk5cpivqpu4no2hsrbw7",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "murriiii.bsky.social",
+    "did": "did:plc:qeps2d6zkb2ct2be5rifrz6c",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "domidola.bsky.social",
+    "did": "did:plc:qqtjuo7rumez65ncwzi2qjkc",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "bze-abap.bsky.social",
+    "did": "did:plc:s3pchv75hykuu5wpy6qwze3d",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "thomasm-92.bsky.social",
+    "did": "did:plc:qj3jchthxopwguj6eaqpuyqd",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "muralidhar0826.bsky.social",
+    "did": "did:plc:27b3wtqa6si7ctsi47zppmoc",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "ztr5987.bsky.social",
+    "did": "did:plc:fw776mrx242ap7yscq3cqchx",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sagar004.bsky.social",
+    "did": "did:plc:676vfrtyor7kk2sycp2by4xl",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "evaporada.bsky.social",
+    "did": "did:plc:fi66npihpst5vv4nlnwadvzz",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "paulinamikolajczyk.bsky.social",
+    "did": "did:plc:wc6tix6js7s3lvo7quejp7kh",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "nileshpuranik.bsky.social",
+    "did": "did:plc:uegx3n6jxhjrsxdhy5nbairl",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "nizaredam.bsky.social",
+    "did": "did:plc:73n5ka2yaz6gm5bnfudd4yvc",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "mterrazas.bsky.social",
+    "did": "did:plc:2gxj5n6zpq6eu7bkc2qdqkxv",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "davidmtzj.bsky.social",
+    "did": "did:plc:glujgb3eoy5n3t4hb7uuclni",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "aykutumer.bsky.social",
+    "did": "did:plc:rjcf7z5qli3so7pq54c2mtlj",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sauravvinocha.bsky.social",
+    "did": "did:plc:5namzfpxesho73zzgnnef6ac",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "mcostasp21.bsky.social",
+    "did": "did:plc:pny3nh6o2pnywlw7uou3ru3t",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "luissantivanez.bsky.social",
+    "did": "did:plc:yh22skzylue7y3edvsw2l6u5",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "nicoschoenteich.bsky.social",
+    "did": "did:plc:fngcwvb3nahatiewmwqeha6d",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "josecas23.bsky.social",
+    "did": "did:plc:ne4pcb2c3gkgpgu4wkekp7qj",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "marwenx.bsky.social",
+    "did": "did:plc:s65lgqwtibiaxswukeqwvgrn",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "obstmitd.bsky.social",
+    "did": "did:plc:u4crx6jgt6lcq4fwdi7uuj2k",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "melcalucin.bsky.social",
+    "did": "did:plc:nunztrtfpemrlohccfdbnff3",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "fabianr.bsky.social",
+    "did": "did:plc:joq3fkxjp3facnlwrmpmxuig",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sajithan.bsky.social",
+    "did": "did:plc:hebkf26foq65ghh2j7lbi6sf",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "vinaysapbtpcapai.bsky.social",
+    "did": "did:plc:ng3iwypz6zkkptvayvaqzrbb",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jamesarcha.bsky.social",
+    "did": "did:plc:w3lofoxsivrsgxmreuvn4o5k",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "craigvdw.bsky.social",
+    "did": "did:plc:zuz3vi44xzhdjar7zqigqiw5",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "thisismadhan.bsky.social",
+    "did": "did:plc:gwnxqhcbvvhzr7ecuxkpmuxi",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "cathit.bsky.social",
+    "did": "did:plc:6pe4bvl6nvpgx4lqa46k236l",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "chdec1974.bsky.social",
+    "did": "did:plc:kfhbbpuhyamuq4yap7ny2qdb",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "pcf-pt.bsky.social",
+    "did": "did:plc:a7vvpdqzgjydb7gpcwssjl5u",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "wujger.bsky.social",
+    "did": "did:plc:dgcj4qr3nrd2f2kpta4tquho",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "hatzidakis.bsky.social",
+    "did": "did:plc:exlg3hdextzehrv4r3bguvjz",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "ionutaanicai.bsky.social",
+    "did": "did:plc:vnb5r2wlb6tx73eplvfr2d3g",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "faheyr.bsky.social",
+    "did": "did:plc:kh5ur37acsclpwdebo67f7po",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "kalyanck.bsky.social",
+    "did": "did:plc:fwnz6hpwkbroefj5hqptkvsm",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "noejc.bsky.social",
+    "did": "did:plc:r7mgdirhloiklgozqmtfyuzk",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "deeptanwar.bsky.social",
+    "did": "did:plc:j6a5e2ldxdibnsh6h3s2puli",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "balajisha.bsky.social",
+    "did": "did:plc:mbmdux6kubirw66hhpae5sbe",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sazihlaleleni.bsky.social",
+    "did": "did:plc:5vx4cokcvsji6kwijkpfsvud",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "venkateshhulekal.bsky.social",
+    "did": "did:plc:ygauoid7mwtv5qao2iqnjrmz",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "bobissac.bsky.social",
+    "did": "did:plc:qd4r5234nuwhduatiucfth3z",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "mdadnan.bsky.social",
+    "did": "did:plc:3xpe23kpgezmreeujlmnkf7q",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "chipfi.bsky.social",
+    "did": "did:plc:7bkhqk2pwdxufkgl43adnt5d",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "leandroherculano.bsky.social",
+    "did": "did:plc:73ag3zbkprlhdcmgthavizxr",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "josephvij.bsky.social",
+    "did": "did:plc:5wicv3vj7hrqbnn7mmbwlhlk",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "joberthi.bsky.social",
+    "did": "did:plc:svtdri5iftodfxwqwnzoqi3u",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sayontandas.bsky.social",
+    "did": "did:plc:b7fpyovjbjuz6tra44edrzc6",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "lpooyanl.bsky.social",
+    "did": "did:plc:ta4qtrxfr7hzbootyffxvgzm",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sharathmg.bsky.social",
+    "did": "did:plc:qhf3rulhlvkvrlkj5mlbq7ig",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "goliardo.bsky.social",
+    "did": "did:plc:xi2ts442jjmjyfgrxebyin4l",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "termanico.bsky.social",
+    "did": "did:plc:67zebyar5ksjij6jao65wicm",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sandeshk.bsky.social",
+    "did": "did:plc:7qx2wiqui7ly5xhouryzqban",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "prakash13t.bsky.social",
+    "did": "did:plc:4p5winrp4qfx4vew3zdeszxp",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "mhsmithson.bsky.social",
+    "did": "did:plc:q4g67pkqhznbunspdcfgbdkc",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "hkandpal.bsky.social",
+    "did": "did:plc:ruvhzqhro4ohpczdjttckuc7",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "akula735.bsky.social",
+    "did": "did:plc:i3spfn5nhfr2r4h676ktevv6",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "ramymonir.bsky.social",
+    "did": "did:plc:hrtoynmga53kdq7kg2fpgkov",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jplocki.bsky.social",
+    "did": "did:plc:utt5dwntnz3af6ktuj7th7qp",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "thiago-garcia.bsky.social",
+    "did": "did:plc:phw4ntlri3pzxqsvczbozuy7",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "balasap.bsky.social",
+    "did": "did:plc:hrq6d6fd6e25i5hc7p65p4jf",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sgandem.bsky.social",
+    "did": "did:plc:xqp77bzlvqj5ujtexbsvhukq",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "kemmler.bsky.social",
+    "did": "did:plc:dt6dfpuvsmpp5qr2cl4ggtlv",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "balakrishnavegi.bsky.social",
+    "did": "did:plc:6rbg2gynf4pk24gaenffvi5k",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "hschaefer123.bsky.social",
+    "did": "did:plc:ltnwvrosm3ghoczgh5dboycu",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sciruela.bsky.social",
+    "did": "did:plc:zsz2nv6ffbv3g5rxiwqxpmdh",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sonalsharma.bsky.social",
+    "did": "did:plc:cpkxyl2jruz5mlqwxk4ykxjo",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sainithesh21.bsky.social",
+    "did": "did:plc:e7fyx364qc52r2tfue34cs22",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "juhojarvenpaa.bsky.social",
+    "did": "did:plc:4d6lcw5twvu5my3u4ezhom74",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "ashishpatil.bsky.social",
+    "did": "did:plc:sptc6ahiv7y3qtpwas4zcmyb",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "lucodealethea.bsky.social",
+    "did": "did:plc:untjzsi6parkxrpxzu2homj7",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "furrari1.bsky.social",
+    "did": "did:plc:fegwb4ndktiv5hcj7fq5cuvl",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "j-bap.bsky.social",
+    "did": "did:plc:lrmrk25pliedw3fhgzgwwcpm",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jpenninkhof.bsky.social",
+    "did": "did:plc:4zrov4zf5ik5zvrhxvyuitts",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "raeijpe.bsky.social",
+    "did": "did:plc:d5njkm64efviq6zqmthrxiqj",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "saphil25.bsky.social",
+    "did": "did:plc:hxpytmy5dt264f6rtibgs6md",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "edgar1506.bsky.social",
+    "did": "did:plc:77tkbgob7oq3att2jrt557ns",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "yogananda-m.bsky.social",
+    "did": "did:plc:upo7h2qbagxx46wdmpnblw4h",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "jun-96.bsky.social",
+    "did": "did:plc:mcbagny26eg6aslpjlcksg7n",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "olivergraeff.bsky.social",
+    "did": "did:plc:o5wygvfxuvh55m56jmluxtjl",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "thekempe.bsky.social",
+    "did": "did:plc:mbwyisujxzojy6qjx7z3twtw",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "tami624.bsky.social",
+    "did": "did:plc:lmdyflx5dkbddpdtmvoqdma4",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "ntr1.bsky.social",
+    "did": "did:plc:xh2c2scghdw4yuigogg3zy3t",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "juanmaibanez.bsky.social",
+    "did": "did:plc:sfulxz6fidcwzvtyb4dyhmtf",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "qiangshou2006.bsky.social",
+    "did": "did:plc:in5ic5g7gtf7bbbtizemrzdk",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "abisheak12.bsky.social",
+    "did": "did:plc:dpqq45nnxp5mo3d3xhu5t2xq",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "mariodefe.bsky.social",
+    "did": "did:plc:jutuxgo76jiq7eszt4c7cmkb",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "finbarjrc.bsky.social",
+    "did": "did:plc:7fbss47agkgj52zrbx5ndef6",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "andreasputscher.bsky.social",
+    "did": "did:plc:hevd2q2ruht7xocp4dzilxit",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "ann-2024.bsky.social",
+    "did": "did:plc:3xduydrktul6t3h4mvpo6k24",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "ikentrock.bsky.social",
+    "did": "did:plc:jqodz2wegbegh6tzjsijzjb4",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "parabvyatin.bsky.social",
+    "did": "did:plc:fhgpmlf2rwp3sk3y4cqgaiqz",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "manishraj.bsky.social",
+    "did": "did:plc:haframivfwy43vtocjs7b24p",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "kgogov.bsky.social",
+    "did": "did:plc:nfd4xd5ojx5bwrczlrje6wzm",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jekruege.bsky.social",
+    "did": "did:plc:2m5yftwymp2elwxk65nfs6ud",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "rotmilan.bsky.social",
+    "did": "did:plc:vlmaxgoefibplifogte7fzgt",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "anouarmhj.bsky.social",
+    "did": "did:plc:nmxccgpfpxmye4e4aayov44i",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "santaneel.bsky.social",
+    "did": "did:plc:g3reqknmes7hhu4qnqj5ehmc",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "vishnandr.bsky.social",
+    "did": "did:plc:fain7pik4jcxber6vgtplqvz",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jcrodri.bsky.social",
+    "did": "did:plc:7kfslctvyi3uucoegkhdhicz",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jknaus.bsky.social",
+    "did": "did:plc:vvkcvtbtk6xte6oiqn62b6mp",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "chrisobar.bsky.social",
+    "did": "did:plc:43zrpnro5vvu4yvmwqpjz5dw",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "repow.bsky.social",
+    "did": "did:plc:oufbmhfo5mwd4ts4gu3qosfo",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "thevivekgowda.bsky.social",
+    "did": "did:plc:glc5fuaecskdkqfjbdochpjj",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "siomilongganisa.bsky.social",
+    "did": "did:plc:gf32m7766jdjwc74ndz5oqq2",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "alithegreatb.bsky.social",
+    "did": "did:plc:pap366gm3jmuclzgwe5gfg2k",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jorgesanux.bsky.social",
+    "did": "did:plc:v5eqp2pdzxkp4hpmcctpp2bj",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "nestornillador.bsky.social",
+    "did": "did:plc:cfiwx4viynat2w3r7xaeeqqp",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "inderpreetsethi.bsky.social",
+    "did": "did:plc:tm3wqllpyrbt3gcb5pf2rj72",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "umzhan28.bsky.social",
+    "did": "did:plc:l5frjlexyqa6llhtn4qdu2kb",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "zobrik.bsky.social",
+    "did": "did:plc:qtlh74oqcymyept7hqkou4ji",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "marcel-schork.bsky.social",
+    "did": "did:plc:3jr3amavinigbblmysm3p5lh",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "aditya-ghanaria.bsky.social",
+    "did": "did:plc:7xagdqplt4xsw7z3i7aeihjc",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "devkrishna.bsky.social",
+    "did": "did:plc:dkp5yn2aw23m6s5v6slp5kss",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "manuelfilipe.bsky.social",
+    "did": "did:plc:t375kckvf6tk52e24oxrt433",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "ui5prompt.bsky.social",
+    "did": "did:plc:2rswcbw2rc6da5umhybad2up",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sebastianwerner.bsky.social",
+    "did": "did:plc:bpdxqmdxfexmhltpreg5xlc6",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "zarbli.bsky.social",
+    "did": "did:plc:er3z2tgsjbmnvdcjfegybobp",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "eamarce.bsky.social",
+    "did": "did:plc:4kotjovpwizrcd3b4rsoo7jd",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  },
+  {
+    "handle": "kishore17sap.bsky.social",
+    "did": "did:plc:i2vm27tn2o45ofdaombioghi",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "ravsg.bsky.social",
+    "did": "did:plc:72ofiaoimpdlzh36eiid77am",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "rpanneel.bsky.social",
+    "did": "did:plc:mdk6gnbxl5q2cfxu3o3ormqc",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "ali-sivri.bsky.social",
+    "did": "did:plc:vlm6ib6323ckfidowfivkyp4",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "preston-jose.bsky.social",
+    "did": "did:plc:wcdmy6ton2kfkfkavefsqwho",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "driesvandamme.bsky.social",
+    "did": "did:plc:wkuoyayzzyo4vgwgvlo7lmq3",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "rhdyn.bsky.social",
+    "did": "did:plc:tdptf2crifjmvenhvslbo5ir",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jexpo.bsky.social",
+    "did": "did:plc:34gqx3lhjzuhdqhslu56mia4",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "gauti07.bsky.social",
+    "did": "did:plc:idto6iyegsge7ttcfykxqqht",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "pjk786.bsky.social",
+    "did": "did:plc:cnlddprggix7axbisy5g44vx",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "gmalew.bsky.social",
+    "did": "did:plc:btgcd3rxoecq272xozngm2uh",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jkdev.bsky.social",
+    "did": "did:plc:nya44lng3ipxznbocmyuzvvp",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "26moinkhan.bsky.social",
+    "did": "did:plc:x26xdjxlu7bplkyzvhauzwtv",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "koja1978.bsky.social",
+    "did": "did:plc:lac7hpjvht6tjcrteqtleont",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "jakobflaman.bsky.social",
+    "did": "did:plc:37rs6cgj45jziorgtzeqln6k",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "andy-adams.bsky.social",
+    "did": "did:plc:ybp2qq62nd32lmcle5s2h2dj",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "teavirdis.bsky.social",
+    "did": "did:plc:r6fkgq77af63gd62pt7l7d63",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "flo0815.bsky.social",
+    "did": "did:plc:jzjva4pnjsmkxcbux5itvsbh",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "antonwe.bsky.social",
+    "did": "did:plc:lykpcp37zlnmjn6yqris2j6p",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "sttiemeol.bsky.social",
+    "did": "did:plc:2grkf2mtkxoiismqbd43zs5c",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "durbacher.bsky.social",
+    "did": "did:plc:fgzggswehlqp4zlneqnfa6kb",
+    "needsAvatarUpdate": false,
+    "needsDisplayNameUpdate": true
+  },
+  {
+    "handle": "boringnerds.bsky.social",
+    "did": "did:plc:eqr7r2vn5xqhc6y2vlryei6g",
+    "needsAvatarUpdate": true,
+    "needsDisplayNameUpdate": false
+  }
+]
