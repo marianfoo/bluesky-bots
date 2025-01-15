@@ -99,17 +99,27 @@ async function saveProgress(did, checkResults, messageStatus = null) {
 
 async function listConvos(accountPDS, limit = 100) {
   const url = 'chat.bsky.convo.listConvos';
+  let allConvos = [];
+  let cursor = null;
 
-  const response = await blueSkySocialAPI.get(url, {
-    params: { limit },
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      'Atproto-Proxy': 'did:web:api.bsky.chat#bsky_chat',
-    },
-    baseURL: `${accountPDS}/xrpc`,
-  });
-  return response.data;
+  do {
+    const response = await blueSkySocialAPI.get(url, {
+      params: { limit, cursor },
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Atproto-Proxy': 'did:web:api.bsky.chat#bsky_chat',
+      },
+      baseURL: `${accountPDS}/xrpc`,
+    });
+    
+    allConvos = allConvos.concat(response.data.convos);
+    cursor = response.data.cursor;
+    
+    console.log(`Fetched ${response.data.convos.length} conversations`);
+  } while (cursor);
+
+  return { convos: allConvos };
 }
 
 // Add helper function
@@ -121,209 +131,206 @@ function checkRateLimit(headers) {
   }
 }
 
-(async () => {
+// Separate the avatar checking logic completely
+async function isDefaultAvatar(imageBuffer) {
   try {
-    // Initialize the Bluesky agent
-    const agent = new BskyAgent({
-      service: 'https://bsky.social',
-    });
+    const image = sharp(imageBuffer);
+    const resizedImage = image.resize(50, 50, { fit: 'fill' });
+    const { data, info } = await resizedImage.raw().toBuffer({ resolveWithObject: true });
 
-    // Login to Bluesky
-    try {
-      const loginResponse = await agent.login({
-        identifier: BLUESKY_USERNAME,
-        password: BLUESKY_PASSWORD,
-      });
-      checkRateLimit(loginResponse.headers);
-      console.log('Logged into Bluesky successfully.');
-    } catch (error) {
-      if (error.status === 429) {
-        console.error('Rate limit exceeded during login.');
-        console.error(`Limit will reset at: ${new Date(error.headers['ratelimit-reset'] * 1000).toLocaleString()}`);
-        process.exit(1);
-      }
-      throw error;
+    const totalPixels = info.width * info.height;
+    const colorCounts = {};
+
+    for (let idx = 0; idx < data.length; idx += info.channels) {
+      const red = data[idx];
+      const green = data[idx + 1];
+      const blue = data[idx + 2];
+      const colorKey = `${red},${green},${blue}`;
+      colorCounts[colorKey] = (colorCounts[colorKey] || 0) + 1;
     }
 
-    // Get your own DID (Decentralized Identifier)
-    const myDid = agent.session.did;
-    console.log(`Your DID: ${myDid}`);
+    const colorKeys = Object.keys(colorCounts);
+    const mostCommonColorCount = Math.max(...Object.values(colorCounts));
+    const mostCommonColorPercentage = (mostCommonColorCount / totalPixels) * 100;
 
-    // Fetch your followers
-    let followers = [];
-    let cursor = null;
-    const limit = 100; // Maximum number of followers per request
-
-    do {
-      const response = await agent.getFollowers({
-        actor: myDid,
-        limit,
-        cursor,
-      });
-
-      followers = followers.concat(response.data.followers);
-      cursor = response.data.cursor;
-
-      console.log(`Fetched ${response.data.followers.length} followers.`);
-    } while (cursor);
-
-    console.log(`Total followers fetched: ${followers.length}`);
-
-    // Fetch all conversations once
-    const session = await createSession();
-    const pdsEndpoint = session.service[0].serviceEndpoint;
-    const conversations = await listConvos(pdsEndpoint);
-    console.log(`Fetched ${conversations.convos.length} existing conversations`);
-
-    // Process each follower
-    for (const follower of followers) {
-      // Only process the test account
-    //   if (follower.did !== "did:plc:2gtexo4dtoufqyz5nrths4vs") {
-    //     continue;
-    //   }
-
-      console.log('----------------------------------');
-      console.log(`Processing follower: ${follower.handle}`);
-
-      // Load existing progress
-      const progress = await loadProgress();
-      
-      // Skip if already processed
-      if (progress[follower.did]) {
-        console.log(`Skipping ${follower.handle} - already processed on ${progress[follower.did].lastChecked}`);
-        continue;
-      }
-
-      const checkResults = {
-        handle: follower.handle,
-        needsAvatarUpdate: false,
-        needsDisplayNameUpdate: false,
-        needsDescriptionUpdate: false
-      };
-
-      // Check if displayName is empty
-      if (!follower.displayName || follower.displayName.trim() === '') {
-        checkResults.needsDisplayNameUpdate = true;
-        console.log(`User ${follower.handle} has no displayName.`);
-      }
-
-      // Check Avatar
-      if (follower.avatar) {
-        try {
-          // Download the avatar image
-          const response = await axios({
-            method: 'get',
-            url: follower.avatar,
-            responseType: 'arraybuffer',
-          });
-
-          // Read the image using sharp
-          const image = sharp(response.data);
-
-          // Resize the image to a smaller size for faster processing
-          const resizedImage = image.resize(50, 50, { fit: 'fill' });
-
-          // Get raw pixel data
-          const { data, info } = await resizedImage.raw().toBuffer({ resolveWithObject: true });
-
-          const totalPixels = info.width * info.height;
-          const colorCounts = {};
-
-          // Iterate over each pixel
-          for (let idx = 0; idx < data.length; idx += info.channels) {
-            const red = data[idx];
-            const green = data[idx + 1];
-            const blue = data[idx + 2];
-            // Ignore alpha channel if present
-
-            const colorKey = `${red},${green},${blue}`;
-            colorCounts[colorKey] = (colorCounts[colorKey] || 0) + 1;
-          }
-
-          const colorKeys = Object.keys(colorCounts);
-          const mostCommonColorCount = Math.max(...Object.values(colorCounts));
-          const mostCommonColorPercentage = (mostCommonColorCount / totalPixels) * 100;
-
-          if (mostCommonColorPercentage > 90 && colorKeys.length < 10) {
-            // Image is mostly one color, likely a default avatar
-            checkResults.needsAvatarUpdate = true;
-            console.log(`User ${follower.handle} has a default avatar.`);
-          } else {
-            console.log(`User ${follower.handle} has a custom avatar.`);
-          }
-        } catch (error) {
-          console.error(`Error processing avatar for ${follower.handle}:`, error.message);
-        }
-      } else {
-        // User has no avatar set
-        checkResults.needsAvatarUpdate = true;
-        console.log(`User ${follower.handle} has no avatar.`);
-      }
-
-      // Save progress after checks
-      await saveProgress(follower.did, checkResults);
-
-      // Only send message if updates are needed
-      if (checkResults.needsAvatarUpdate || 
-          checkResults.needsDisplayNameUpdate) {
-        
-        try {
-          // Check if conversation already exists
-          const existingConvo = conversations.convos.find(convo => 
-            convo.members.includes(follower.did)
-          );
-
-          if (existingConvo) {
-            console.log(`Message already sent to @${follower.handle} - conversation exists`);
-            await saveProgress(follower.did, checkResults, true);
-            continue;
-          }
-
-          let message = `Welcome to Bluesky, @${follower.handle}!\n\n`;
-          message += `Thank you for supporting the SAP community here and contributing to it. The focus is, of course, on the exchange of information on SAP topics.\n\n`;
-          message += `It is very helpful if you don't have the default avatar and have a good username (preferably your real name).\n\n`;
-
-          let updatesList = [];
-
-          if (checkResults.needsAvatarUpdate) {
-            updatesList.push('the default avatar');
-          }
-          if (checkResults.needsDisplayNameUpdate) {
-            updatesList.push('no display name');
-          }
-
-          if (updatesList.length > 0) {
-            message += `I noticed that you still have ${updatesList.join(', ')}.\n\n`;
-          }
-
-          message += `You don't have to change anything, of course, but I and the SAP community here would be happy if you did.\n\n`;
-          message += `Thanks in advance!\n\nBest regards,\nMarian Zeis`;
-          message += `\n\n[This is an automated message sent by a bot]`;
-
-          // Get or create conversation
-          const convo = await getConvoForMembers(pdsEndpoint, [session.did, follower.did]);
-
-          // Send message using the conversation ID
-          await sendMessage(pdsEndpoint, convo.convo.id, message);
-          console.log(`Sent a private message to @${follower.handle}`);
-          await saveProgress(follower.did, checkResults, true);
-        } catch (error) {
-          console.error(`Error sending message to @${follower.handle}:`, error.message);
-          await saveProgress(follower.did, checkResults, false);
-        }
-
-        // Add a delay between messages to respect rate limits
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-      }
-
-      // Optional: Add a delay between requests to respect rate limits
-      await new Promise((resolve) => setTimeout(resolve, 500)); // Wait 500ms
-    }
+    return mostCommonColorPercentage > 75; // Slightly relaxed criteria
   } catch (error) {
-    console.error('Error:', error.message);
-    if (error.status === 429) {
-      console.error('Script stopped due to rate limiting.');
-    }
-    process.exit(1);
+    throw new Error(`Error processing image: ${error.message}`);
   }
-})();
+}
+
+// Only export what's needed for testing
+module.exports = { isDefaultAvatar };
+
+// Only run the main script if this file is being run directly
+if (require.main === module) {
+  (async () => {
+    try {
+      // Initialize the Bluesky agent
+      const agent = new BskyAgent({
+        service: 'https://bsky.social',
+      });
+
+      // Login to Bluesky
+      try {
+        const loginResponse = await agent.login({
+          identifier: BLUESKY_USERNAME,
+          password: BLUESKY_PASSWORD,
+        });
+        checkRateLimit(loginResponse.headers);
+        console.log('Logged into Bluesky successfully.');
+      } catch (error) {
+        if (error.status === 429) {
+          console.error('Rate limit exceeded during login.');
+          console.error(`Limit will reset at: ${new Date(error.headers['ratelimit-reset'] * 1000).toLocaleString()}`);
+          process.exit(1);
+        }
+        throw error;
+      }
+
+      // Get your own DID (Decentralized Identifier)
+      const myDid = agent.session.did;
+      console.log(`Your DID: ${myDid}`);
+
+      // Fetch your followers
+      let followers = [];
+      let cursor = null;
+      const limit = 100; // Maximum number of followers per request
+
+      do {
+        const response = await agent.getFollowers({
+          actor: myDid,
+          limit,
+          cursor,
+        });
+
+        followers = followers.concat(response.data.followers);
+        cursor = response.data.cursor;
+
+        console.log(`Fetched ${response.data.followers.length} followers.`);
+      } while (cursor);
+
+      console.log(`Total followers fetched: ${followers.length}`);
+
+      // Fetch all conversations once
+      const session = await createSession();
+      const pdsEndpoint = session.service[0].serviceEndpoint;
+      const conversations = await listConvos(pdsEndpoint);
+      console.log(`Fetched ${conversations.convos.length} total conversations`);
+
+      // Process each follower
+      for (const follower of followers) {
+        // Only process the test account
+      //   if (follower.did !== "did:plc:2gtexo4dtoufqyz5nrths4vs") {
+      //     continue;
+      //   }
+
+        console.log('----------------------------------');
+        console.log(`Processing follower: ${follower.handle}`);
+
+        // Check if conversation already exists
+        const existingConvo = conversations.convos.find(convo => 
+          convo.members.some(member => member.did === follower.did)
+        );
+
+        if (existingConvo) {
+          console.log(`Skipping ${follower.handle} - conversation already exists`);
+          continue;
+        }
+
+        const checkResults = {
+          handle: follower.handle,
+          needsAvatarUpdate: false,
+          needsDisplayNameUpdate: false,
+          needsDescriptionUpdate: false
+        };
+
+        // Check if displayName is empty
+        if (!follower.displayName || follower.displayName.trim() === '') {
+          checkResults.needsDisplayNameUpdate = true;
+          console.log(`User ${follower.handle} has no displayName.`);
+        }
+
+        // Check Avatar
+        if (follower.avatar) {
+          try {
+            // Download the avatar image
+            const response = await axios({
+              method: 'get',
+              url: follower.avatar,
+              responseType: 'arraybuffer',
+            });
+
+            const isDefault = await isDefaultAvatar(response.data);
+            
+            if (isDefault) {
+              // Image is mostly one color, likely a default avatar
+              checkResults.needsAvatarUpdate = true;
+              console.log(`User ${follower.handle} has a default avatar.`);
+            } else {
+              console.log(`User ${follower.handle} has a custom avatar.`);
+            }
+          } catch (error) {
+            console.error(`Error processing avatar for ${follower.handle}:`, error.message);
+          }
+        } else {
+          // User has no avatar set
+          checkResults.needsAvatarUpdate = true;
+          console.log(`User ${follower.handle} has no avatar.`);
+        }
+
+        // Save progress after checks
+        await saveProgress(follower.did, checkResults);
+
+        // Only send message if updates are needed
+        if (checkResults.needsAvatarUpdate || 
+            checkResults.needsDisplayNameUpdate) {
+          
+          try {
+            let message = `Welcome to Bluesky, @${follower.handle}!\n\n`;
+            message += `Thank you for supporting the SAP community here and contributing to it. The focus is, of course, on the exchange of information on SAP topics.\n\n`;
+            message += `It is very helpful if you don't have the default avatar and have a good username (preferably your real name).\n\n`;
+
+            let updatesList = [];
+
+            if (checkResults.needsAvatarUpdate) {
+              updatesList.push('the default avatar');
+            }
+            if (checkResults.needsDisplayNameUpdate) {
+              updatesList.push('no display name');
+            }
+
+            if (updatesList.length > 0) {
+              message += `I noticed that you still have ${updatesList.join(', ')}.\n\n`;
+            }
+
+            message += `You don't have to change anything, of course, but I and the SAP community here would be happy if you did.\n\n`;
+            message += `Thanks in advance!\n\nBest regards,\nMarian Zeis`;
+            message += `\n\n[This is an automated message sent by a bot]`;
+
+            // Get or create conversation
+            const convo = await getConvoForMembers(pdsEndpoint, [session.did, follower.did]);
+
+            // Send message using the conversation ID
+            await sendMessage(pdsEndpoint, convo.convo.id, message);
+            console.log(`Sent a private message to @${follower.handle}`);
+          } catch (error) {
+            console.error(`Error sending message to @${follower.handle}:`, error.message);
+          }
+
+          // Add a delay between messages to respect rate limits
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+        }
+
+        // Optional: Add a delay between requests to respect rate limits
+        await new Promise((resolve) => setTimeout(resolve, 500)); // Wait 500ms
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+      if (error.status === 429) {
+        console.error('Script stopped due to rate limiting.');
+      }
+      process.exit(1);
+    }
+  })();
+}
