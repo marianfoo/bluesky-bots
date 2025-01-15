@@ -52,29 +52,41 @@ async function getConvoForMembers(accountPDS, members) {
     },
     baseURL: `${accountPDS}/xrpc`,
   });
+  
+  checkRateLimit(response.headers);
   return response.data;
 }
 
 async function sendMessage(accountPDS, convoId, message) {
   const url = 'chat.bsky.convo.sendMessage';
 
-  await blueSkySocialAPI.post(
-    url,
-    {
-      convoId: convoId,
-      message: {
-        text: message,
+  try {
+    const response = await blueSkySocialAPI.post(
+      url,
+      {
+        convoId: convoId,
+        message: {
+          text: message,
+        },
       },
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'Atproto-Proxy': 'did:web:api.bsky.chat#bsky_chat',
-      },
-      baseURL: `${accountPDS}/xrpc`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'Atproto-Proxy': 'did:web:api.bsky.chat#bsky_chat',
+        },
+        baseURL: `${accountPDS}/xrpc`,
+      }
+    );
+    
+    checkRateLimit(response.headers);
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      checkRateLimit(error.response.headers);
     }
-  );
+    throw error;
+  }
 }
 
 async function loadProgress() {
@@ -113,6 +125,7 @@ async function listConvos(accountPDS, limit = 100) {
       baseURL: `${accountPDS}/xrpc`,
     });
     
+    checkRateLimit(response.headers);
     allConvos = allConvos.concat(response.data.convos);
     cursor = response.data.cursor;
     
@@ -160,7 +173,12 @@ async function isDefaultAvatar(imageBuffer) {
 }
 
 // Only export what's needed for testing
-module.exports = { isDefaultAvatar };
+module.exports = { 
+  isDefaultAvatar,
+  createSession,
+  getConvoForMembers,
+  sendMessage
+};
 
 // Only run the main script if this file is being run directly
 if (require.main === module) {
@@ -212,37 +230,20 @@ if (require.main === module) {
 
       console.log(`Total followers fetched: ${followers.length}`);
 
-      // Fetch all conversations once
-      const session = await createSession();
-      const pdsEndpoint = session.service[0].serviceEndpoint;
-      const conversations = await listConvos(pdsEndpoint);
-      console.log(`Fetched ${conversations.convos.length} total conversations`);
+      // Create an array to store followers needing updates
+      const followersNeedingUpdates = [];
 
       // Process each follower
       for (const follower of followers) {
-        // Only process the test account
-      //   if (follower.did !== "did:plc:2gtexo4dtoufqyz5nrths4vs") {
-      //     continue;
-      //   }
-
         console.log('----------------------------------');
         console.log(`Processing follower: ${follower.handle}`);
 
-        // Check if conversation already exists
-        const existingConvo = conversations.convos.find(convo => 
-          convo.members.some(member => member.did === follower.did)
-        );
-
-        if (existingConvo) {
-          console.log(`Skipping ${follower.handle} - conversation already exists`);
-          continue;
-        }
-
         const checkResults = {
           handle: follower.handle,
+          did: follower.did,
           needsAvatarUpdate: false,
           needsDisplayNameUpdate: false,
-          needsDescriptionUpdate: false
+          avatarUrl: follower.avatar
         };
 
         // Check if displayName is empty
@@ -254,7 +255,6 @@ if (require.main === module) {
         // Check Avatar
         if (follower.avatar) {
           try {
-            // Download the avatar image
             const response = await axios({
               method: 'get',
               url: follower.avatar,
@@ -264,67 +264,46 @@ if (require.main === module) {
             const isDefault = await isDefaultAvatar(response.data);
             
             if (isDefault) {
-              // Image is mostly one color, likely a default avatar
               checkResults.needsAvatarUpdate = true;
               console.log(`User ${follower.handle} has a default avatar.`);
-            } else {
-              console.log(`User ${follower.handle} has a custom avatar.`);
             }
           } catch (error) {
             console.error(`Error processing avatar for ${follower.handle}:`, error.message);
           }
         } else {
-          // User has no avatar set
           checkResults.needsAvatarUpdate = true;
+          checkResults.avatarUrl = null;
           console.log(`User ${follower.handle} has no avatar.`);
         }
 
         // Save progress after checks
         await saveProgress(follower.did, checkResults);
 
-        // Only send message if updates are needed
-        if (checkResults.needsAvatarUpdate || 
-            checkResults.needsDisplayNameUpdate) {
-          
-          try {
-            let message = `Welcome to Bluesky, @${follower.handle}!\n\n`;
-            message += `Thank you for supporting the SAP community here and contributing to it. The focus is, of course, on the exchange of information on SAP topics.\n\n`;
-            message += `It is very helpful if you don't have the default avatar and have a good username (preferably your real name).\n\n`;
-
-            let updatesList = [];
-
-            if (checkResults.needsAvatarUpdate) {
-              updatesList.push('the default avatar');
-            }
-            if (checkResults.needsDisplayNameUpdate) {
-              updatesList.push('no display name');
-            }
-
-            if (updatesList.length > 0) {
-              message += `I noticed that you still have ${updatesList.join(', ')}.\n\n`;
-            }
-
-            message += `You don't have to change anything, of course, but I and the SAP community here would be happy if you did.\n\n`;
-            message += `Thanks in advance!\n\nBest regards,\nMarian Zeis`;
-            message += `\n\n[This is an automated message sent by a bot]`;
-
-            // Get or create conversation
-            const convo = await getConvoForMembers(pdsEndpoint, [session.did, follower.did]);
-
-            // Send message using the conversation ID
-            await sendMessage(pdsEndpoint, convo.convo.id, message);
-            console.log(`Sent a private message to @${follower.handle}`);
-          } catch (error) {
-            console.error(`Error sending message to @${follower.handle}:`, error.message);
-          }
-
-          // Add a delay between messages to respect rate limits
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+        // Add to list if updates are needed
+        if (checkResults.needsAvatarUpdate || checkResults.needsDisplayNameUpdate) {
+          followersNeedingUpdates.push(checkResults);
         }
 
         // Optional: Add a delay between requests to respect rate limits
-        await new Promise((resolve) => setTimeout(resolve, 500)); // Wait 500ms
+        await new Promise((resolve) => setTimeout(resolve, 500));
       }
+
+      // Output results
+      console.log('\n=== Followers Needing Updates ===');
+      followersNeedingUpdates.forEach(follower => {
+        console.log(`\nHandle: @${follower.handle}`);
+        console.log(`DID: ${follower.did}`);
+        console.log(`Needs Avatar Update: ${follower.needsAvatarUpdate}`);
+        console.log(`Needs Display Name Update: ${follower.needsDisplayNameUpdate}`);
+      });
+
+      // Save results to a file
+      await fs.writeFile(
+        'followers-needing-updates.json', 
+        JSON.stringify(followersNeedingUpdates, null, 2)
+      );
+      console.log('\nResults saved to followers-needing-updates.json');
+
     } catch (error) {
       console.error('Error:', error.message);
       if (error.status === 429) {
