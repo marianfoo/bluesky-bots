@@ -164,11 +164,11 @@ const agent = new BskyAgent({
             // Generate the documentation link based on UI5 type
             const docsLink =
               type === 'SAPUI5'
-                ? `https://ui5.sap.com/${latestVersion}/#/`
-                : `https://sdk.openui5.org/${latestVersion}/#/`;
+                ? `https://ui5.sap.com/${latestVersion}/#/topic/99ac68a5b1c3416ab5c84c99fefa250d`
+                : `https://sdk.openui5.org/${latestVersion}/#/topic/99ac68a5b1c3416ab5c84c99fefa250d`;
 
             // Prepare the post text
-            const postText = `🚀 New ${type} version released: ${latestVersion}\nChange type: ${changeType}\n🔗 What's new: ${compareLink}\n📚 Documentation: ${docsLink}`;
+            const postText = `🚀 New ${type} version released: ${latestVersion}\nChange type: ${changeType}\n🔗 Changelog: ${compareLink}\n📚 What's new: ${docsLink}`;
 
             // Enforce Bluesky rate limit
             const now = Date.now();
