@@ -15,12 +15,22 @@ const BLUESKY_PASSWORD = process.env.BLUESKY_PASSWORD;
 // Array of RSS feed URLs
 const RSS_FEED_URLS = [
   'https://community.sap.com/khhcw49343/rss/board?board.id=technology-blog-sap',
-  'https://community.sap.com/khhcw49343/rss/board?board.id=technology-blog-members'
+  'https://community.sap.com/khhcw49343/rss/board?board.id=technology-blog-members',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=abapblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=aiblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=capblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=data-analyticsblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=toolingblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=integrationblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=frontend-ui5-fioriblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=devops-sysadminblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=developer-news'
 ];
 
 const CHECK_INTERVAL = 60 * 60 * 1000; // Check every 60 minutes
 const RATE_LIMIT_INTERVAL = 30 * 1000; // 1 post per 30 seconds
 const POSTED_IDS_FILE = path.join(__dirname, 'posted_ids.json');
+const PUBLISH_START_DATE = new Date('2026-01-26T00:00:00Z'); // Only post items from this date
 
 // Initialize the Bluesky agent
 const agent = new BskyAgent({
@@ -51,6 +61,14 @@ function log(message, isError = false) {
   } else {
     console.log(logMessage);
   }
+}
+
+function getItemPublishDate(item) {
+  const rawDate = item.pubDate || item['dc:date'] || item.date;
+  if (!rawDate) return null;
+  const parsedDate = new Date(rawDate);
+  if (Number.isNaN(parsedDate.getTime())) return null;
+  return parsedDate;
 }
 
 // Main function
@@ -113,7 +131,12 @@ function log(message, isError = false) {
           const newItems = feedItems.filter(item => {
             const id = item.guid || item.link;
             const uniqueId = `${feedUrl}::${id}`;
-            return !postedIds.hasOwnProperty(uniqueId);
+            const publishDate = getItemPublishDate(item);
+            return (
+              !postedIds.hasOwnProperty(uniqueId) &&
+              publishDate &&
+              publishDate >= PUBLISH_START_DATE
+            );
           });
           log(`Found ${newItems.length} new posts in feed`);
 
@@ -122,9 +145,13 @@ function log(message, isError = false) {
             const id = item.guid || item.link;
             // Create a unique key combining feed URL and item ID to avoid conflicts
             const uniqueId = `${feedUrl}::${id}`;
+            const publishDate = getItemPublishDate(item);
 
             // Skip if already posted
             if (postedIds.hasOwnProperty(uniqueId)) {
+              continue;
+            }
+            if (!publishDate || publishDate < PUBLISH_START_DATE) {
               continue;
             }
 
