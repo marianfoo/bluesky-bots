@@ -15,7 +15,28 @@ const BLUESKY_PASSWORD = process.env.BLUESKY_PASSWORD;
 // Array of RSS feed URLs
 const RSS_FEED_URLS = [
   'https://community.sap.com/khhcw49343/rss/board?board.id=technology-blog-sap',
-  'https://community.sap.com/khhcw49343/rss/board?board.id=technology-blog-members'
+  'https://community.sap.com/khhcw49343/rss/board?board.id=technology-blog-members',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=aiblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=capblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=data-analyticsblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=toolingblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=integrationblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=frontend-ui5-fioriblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=devops-sysadminblog-board',
+  'https://community.sap.com/khhcw49343/rss/board?board.id=developer-news'
+];
+
+// New feeds added on 2026-01-26 - only publish items from this date onwards
+const NEW_FEEDS_CUTOFF_DATE = new Date('2026-01-26T00:00:00Z');
+const NEW_FEED_IDS = [
+  'aiblog-board',
+  'capblog-board',
+  'data-analyticsblog-board',
+  'toolingblog-board',
+  'integrationblog-board',
+  'frontend-ui5-fioriblog-board',
+  'devops-sysadminblog-board',
+  'developer-news'
 ];
 
 const CHECK_INTERVAL = 60 * 60 * 1000; // Check every 60 minutes
@@ -51,6 +72,26 @@ function log(message, isError = false) {
   } else {
     console.log(logMessage);
   }
+}
+
+// Helper function to check if a feed URL is one of the new feeds
+function isNewFeed(feedUrl) {
+  return NEW_FEED_IDS.some(feedId => feedUrl.includes(feedId));
+}
+
+// Helper function to get the blog source name from feed URL
+function getBlogSource(feedUrl) {
+  if (feedUrl.includes('technology-blog-sap')) return 'by SAP';
+  if (feedUrl.includes('technology-blog-members')) return 'by Members';
+  if (feedUrl.includes('aiblog-board')) return 'AI';
+  if (feedUrl.includes('capblog-board')) return 'CAP';
+  if (feedUrl.includes('data-analyticsblog-board')) return 'Data & Analytics';
+  if (feedUrl.includes('toolingblog-board')) return 'Tooling';
+  if (feedUrl.includes('integrationblog-board')) return 'Integration';
+  if (feedUrl.includes('frontend-ui5-fioriblog-board')) return 'UI5 & Fiori';
+  if (feedUrl.includes('devops-sysadminblog-board')) return 'DevOps';
+  if (feedUrl.includes('developer-news')) return 'Developer News';
+  return '';
 }
 
 // Main function
@@ -113,7 +154,21 @@ function log(message, isError = false) {
           const newItems = feedItems.filter(item => {
             const id = item.guid || item.link;
             const uniqueId = `${feedUrl}::${id}`;
-            return !postedIds.hasOwnProperty(uniqueId);
+            
+            // Skip if already posted
+            if (postedIds.hasOwnProperty(uniqueId)) {
+              return false;
+            }
+            
+            // For new feeds, skip items published before the cutoff date
+            if (isNewFeed(feedUrl) && item.pubDate) {
+              const itemDate = new Date(item.pubDate);
+              if (itemDate < NEW_FEEDS_CUTOFF_DATE) {
+                return false;
+              }
+            }
+            
+            return true;
           });
           log(`Found ${newItems.length} new posts in feed`);
 
@@ -126,6 +181,15 @@ function log(message, isError = false) {
             // Skip if already posted
             if (postedIds.hasOwnProperty(uniqueId)) {
               continue;
+            }
+
+            // For new feeds, skip items published before the cutoff date
+            if (isNewFeed(feedUrl) && item.pubDate) {
+              const itemDate = new Date(item.pubDate);
+              if (itemDate < NEW_FEEDS_CUTOFF_DATE) {
+                log(`Skipping old item from new feed: "${item.title}" (${item.pubDate})`);
+                continue;
+              }
             }
 
             log(`Processing new post: "${item.title}"`);
@@ -146,11 +210,7 @@ function log(message, isError = false) {
               item['dc:creator'] || item['creator'] || 'Unknown Author';
 
             // Determine the blog source from the feed URL
-            const blogSource = feedUrl.includes('technology-blog-sap') 
-              ? 'by SAP' 
-              : feedUrl.includes('technology-blog-members') 
-                ? 'by Members' 
-                : '';
+            const blogSource = getBlogSource(feedUrl);
 
             // Calculate maximum title length to ensure total post stays within limit
             const baseText = `👤 Post by ${author} (${blogSource}):\n""\n🔗 Link: ${item.link}`;
