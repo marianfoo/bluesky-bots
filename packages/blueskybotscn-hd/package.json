@@ -1,0 +1,15 @@
+{
+  "name": "blueskybotscn-hd",
+  "version": "1.0.0",
+  "description": "Bluesky bot for high quality SAP Community blog posts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@atproto/api": "^0.13.16",
+    "dotenv": "^16.4.5"
+  }
+}
